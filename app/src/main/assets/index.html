@@ -351,6 +351,60 @@ body{background:#060D15;font-family:'Segoe UI',system-ui,sans-serif;color:var(--
 .upi-note{font-size:.65rem;color:var(--muted2);background:rgba(255,255,255,.04);
   border-radius:8px;padding:8px 10px;margin-bottom:10px;line-height:1.6;border:1px solid var(--border)}
 </style>
+
+<style>
+/* ===== ANDROID WEBVIEW MOBILE FIX ===== */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  overflow: hidden !important;
+  background: #0D1B2A !important;
+}
+
+/* Hide desktop sidebar */
+.sidebar {
+  display: none !important;
+}
+
+/* Hide phone shell label */
+.p-label {
+  display: none !important;
+}
+
+/* Make phone-wrap fill entire screen */
+.phone-wrap {
+  display: block !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+/* Make phone div fill entirely */
+.phone {
+  width: 100vw !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+/* Make body a single column with no flex gap */
+body {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+}
+/* ===================================== */
+</style>
+
 </head>
 <body>
 
