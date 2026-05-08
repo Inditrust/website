@@ -405,6 +405,97 @@ body {
 /* ===================================== */
 </style>
 
+
+/* ===== HOW TO WORK & EARN - VIDEO MODAL ===== */
+.how-to-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  color: #3AAA35;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  padding: 10px;
+  border: 1.5px solid rgba(58,170,53,0.35);
+  border-radius: 10px;
+  background: rgba(58,170,53,0.07);
+  transition: background 0.2s;
+}
+.how-to-link:active { background: rgba(58,170,53,0.18); }
+.how-to-link .yt-icon { font-size: 1.2rem; }
+
+/* Video Modal Overlay */
+.video-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  z-index: 9999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.video-modal-overlay.active { display: flex; }
+
+.video-modal-box {
+  background: #0D1B2A;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 480px;
+  overflow: hidden;
+  border: 1px solid rgba(58,170,53,0.3);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+}
+.video-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: rgba(58,170,53,0.1);
+  border-bottom: 1px solid rgba(58,170,53,0.2);
+}
+.video-modal-title {
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.video-modal-close {
+  color: #aaa;
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.08);
+}
+.video-modal-close:active { background: rgba(255,255,255,0.18); }
+.video-iframe-wrap {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 */
+}
+.video-iframe-wrap iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+.video-modal-footer {
+  padding: 12px 16px;
+  color: rgba(255,255,255,0.45);
+  font-size: 0.72rem;
+  text-align: center;
+}
+/* ============================================= */
+
 </head>
 <body>
 
@@ -556,6 +647,32 @@ body {
           <div class="l-err" id="signup-err"></div>
           <div class="l-signup-link" onclick="toggleSignup()">Back to Login</div>
         </div>
+
+        <!-- HOW TO WORK & EARN -->
+        <div class="how-to-link" onclick="openVideoModal()">
+          <span class="yt-icon">▶️</span>
+          How to Work &amp; Earn — Watch Video
+        </div>
+
+        <!-- VIDEO MODAL -->
+        <div class="video-modal-overlay" id="videoModal">
+          <div class="video-modal-box">
+            <div class="video-modal-header">
+              <div class="video-modal-title">🎓 How to Work &amp; Earn</div>
+              <div class="video-modal-close" onclick="closeVideoModal()">✕</div>
+            </div>
+            <div class="video-iframe-wrap">
+              <iframe
+                id="ytFrame"
+                src=""
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
+            </div>
+            <div class="video-modal-footer">IndiTrust Solutions · Field Agent Training</div>
+          </div>
+        </div>
+
       </div>
 
       <!-- ════════════ HOME ════════════ -->
@@ -1665,5 +1782,35 @@ function statusIcon(status){
 // ════════════════════════════════════
 go('login');
 </script>
+
+<script>
+// ===== VIDEO MODAL =====
+// 👇 PASTE YOUR YOUTUBE VIDEO LINK HERE
+var YOUTUBE_VIDEO_URL = "YOUR_YOUTUBE_LINK_HERE";
+
+function getYouTubeEmbedUrl(url) {
+  var videoId = '';
+  var match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([a-zA-Z0-9_-]{11})/);
+  if (match) videoId = match[1];
+  return videoId ? 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0' : '';
+}
+
+function openVideoModal() {
+  var embedUrl = getYouTubeEmbedUrl(YOUTUBE_VIDEO_URL);
+  if (!embedUrl) {
+    alert('Training video coming soon!');
+    return;
+  }
+  document.getElementById('ytFrame').src = embedUrl;
+  document.getElementById('videoModal').classList.add('active');
+}
+
+function closeVideoModal() {
+  document.getElementById('ytFrame').src = '';
+  document.getElementById('videoModal').classList.remove('active');
+}
+// =======================
+</script>
+
 </body>
 </html>
